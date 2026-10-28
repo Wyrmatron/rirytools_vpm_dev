@@ -10,7 +10,7 @@ Or open [the listing page](https://rionquosue.github.io/rirytools_vpm/) and pres
 
 ## How it is built
 
-1. Every hour, [`build-package.yml`](.github/workflows/build-package.yml) reads the `version` in [Rionquosue/riryunityworkflow](https://github.com/Rionquosue/riryunityworkflow)'s `main`. If there is no release for it yet, it zips that commit with [`scripts/build_vpm.py`](scripts/build_vpm.py) (without `Docs~`, `TestProject~` and dot files) and publishes release `v<version>` with the zip and `package.json`. Bump `"version"` in the source `package.json` to publish. No token connects the two repositories.
+1. On every push to [Rionquosue/riryunityworkflow](https://github.com/Rionquosue/riryunityworkflow)'s `main`, its `notify-vpm.yml` starts [`build-package.yml`](.github/workflows/build-package.yml), which reads the `version` in that `main`. If there is no release for it yet, it zips that commit with [`scripts/build_vpm.py`](scripts/build_vpm.py) (without `Docs~`, `TestProject~` and dot files) and publishes release `v<version>` with the zip and `package.json`. Bump `"version"` in the source `package.json` to publish. The request carries no input, so only the current commit of source `main` is built.
 
 2. It never reuses or overwrites a release it did not make: [`scripts/verify_release.py`](scripts/verify_release.py) requires the release and both assets to come from `github-actions[bot]` and the zip to match the build, and the run fails otherwise.
 
@@ -34,11 +34,13 @@ In this repository:
 
 4. **Settings > Secrets and variables > Actions > Secrets:** delete `SOURCE_REPO_TOKEN`; it is no longer used.
 
-In `Rionquosue/riryunityworkflow`: delete `.github/workflows/notify-vpm.yml` and the `VPM_DISPATCH_TOKEN` secret, and revoke that token.
+In `Rionquosue/riryunityworkflow`:
 
-To publish without waiting for the hourly check, run **Build Package** from this repository's Actions tab. If a release exists but its listing never deployed, run **Build Repo Listing** by hand.
+5. **Settings > Secrets and variables > Actions > Secrets:** `VPM_DISPATCH_TOKEN`, a fine-grained personal access token for `Rionquosue/rirytools_vpm` only, with **Actions: Read and write** and nothing else. It can only start this repository's workflows.
 
-GitHub turns off scheduled workflows in public repositories after 60 days without activity and emails the owner. Re-enable **Build Package** and **Audit Listing** from the Actions tab if that happens.
+To publish by hand, run **Build Package** from this repository's Actions tab. If a release exists but its listing never deployed, run **Build Repo Listing** by hand.
+
+GitHub turns off scheduled workflows in public repositories after 60 days without activity and emails the owner. Re-enable **Audit Listing** from the Actions tab if that happens.
 
 ## Customizing the landing page
 

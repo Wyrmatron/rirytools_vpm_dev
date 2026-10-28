@@ -3,13 +3,11 @@
 # then starts build-listing.yml. Nothing reaches VCC users until the owner approves
 # the listing's Pages deployment (see build-listing.yml).
 #
-# It polls hourly instead of being dispatched, so no personal access token exists.
-# Only the current commit of the source repository's main branch is ever built.
+# The source repository's notify-vpm.yml starts it on every push to its main. The
+# request carries no input: only the current commit of the source main is ever built.
 name: Build Package
 
 on:
-  schedule:
-    - cron: "17 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -20,7 +18,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  SOURCE_REPOSITORY: Rionquosue/riryunityworkflow
+  SOURCE_REPOSITORY: ${{ github.repository_owner }}/riryunityworkflow
 
 jobs:
   check:
