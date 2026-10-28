@@ -18,10 +18,12 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  SOURCE_REPOSITORY: ${{ vars.SOURCE_REPOSITORY || format('{0}/riryunityworkflow', github.repository_owner) }}
+  SOURCE_REPOSITORY: Rionquosue/riryunityworkflow
 
 jobs:
   check:
+    # Runs only in the main repository, not in forks such as the _dev staging copy.
+    if: github.repository == 'Rionquosue/rirytools_vpm'
     runs-on: ubuntu-latest
     outputs:
       build: ${{ steps.check.outputs.build }}

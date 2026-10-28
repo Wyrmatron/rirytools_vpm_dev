@@ -38,7 +38,7 @@ In `Rionquosue/riryunityworkflow`:
 
 5. **Settings > Secrets and variables > Actions > Secrets:** `VPM_DISPATCH_TOKEN`, a fine-grained personal access token for `Rionquosue/rirytools_vpm` only, with **Actions: Read and write** and nothing else. It can only start this repository's workflows.
 
-The source repository is `<owner>/riryunityworkflow`; set the Actions variable `SOURCE_REPOSITORY` (owner/name) if it has another name.
+Every workflow runs only in `Rionquosue/rirytools_vpm`. In a fork, such as a `_dev` staging copy, the jobs are skipped.
 
 To publish by hand, run **Build Package** from this repository's Actions tab. If a release exists but its listing never deployed, run **Build Repo Listing** by hand.
 
