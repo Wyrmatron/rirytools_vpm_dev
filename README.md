@@ -38,6 +38,8 @@ In `Rionquosue/riryunityworkflow`:
 
 5. **Settings > Secrets and variables > Actions > Secrets:** `VPM_DISPATCH_TOKEN`, a fine-grained personal access token for `Rionquosue/rirytools_vpm` only, with **Actions: Read and write** and nothing else. It can only start this repository's workflows.
 
+The source repository is `<owner>/riryunityworkflow`; set the Actions variable `SOURCE_REPOSITORY` (owner/name) if it has another name.
+
 To publish by hand, run **Build Package** from this repository's Actions tab. If a release exists but its listing never deployed, run **Build Repo Listing** by hand.
 
 GitHub turns off scheduled workflows in public repositories after 60 days without activity and emails the owner. Re-enable **Audit Listing** from the Actions tab if that happens.

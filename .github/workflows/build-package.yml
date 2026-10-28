@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  SOURCE_REPOSITORY: ${{ github.repository_owner }}/riryunityworkflow
+  SOURCE_REPOSITORY: ${{ vars.SOURCE_REPOSITORY || format('{0}/riryunityworkflow', github.repository_owner) }}
 
 jobs:
   check:

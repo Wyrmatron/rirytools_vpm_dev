@@ -23,7 +23,7 @@ jobs:
       - name: Check out the source repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          repository: ${{ github.repository_owner }}/riryunityworkflow
+          repository: ${{ vars.SOURCE_REPOSITORY || format('{0}/riryunityworkflow', github.repository_owner) }}
           ref: main
           path: source
           fetch-depth: 0
